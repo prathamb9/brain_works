@@ -1,29 +1,91 @@
-import React, { useState } from 'react';
-import FavoriteIcon from '@mui/icons-material/Favorite';
+// import React, { useState } from 'react';
+// import FavoriteIcon from '@mui/icons-material/Favorite';
+
+// function CardiologyClinic() {
+//   const [activeTab, setActiveTab] = useState(0);
+
+//   const clinics = [
+//     {
+//       name: 'Glioma',
+//       title: 'Glioma',
+//       description: 'Gliomas are one of the most common types of brain tumors and develop from glial cells. They can affect brain function and may vary from slow-growing to aggressive forms, making early detection very important.'
+//     },
+//     {
+//       name: 'Meningioma',
+//       title: 'Meningioma',
+//       description: 'Meningiomas originate from the protective membranes surrounding the brain and spinal cord. They are often slow-growing and benign, but timely diagnosis helps prevent complications.'
+//     },
+//     {
+//       name: 'Pituitary Tumor',
+//       title: 'Pituitary Tumor',
+//       description: 'Pituitary tumors form in the pituitary gland and can affect hormone production. Although many are non-cancerous, they may cause vision problems or hormonal imbalance if left untreated.'
+//     },
+//     {
+//       name: 'Metastatic Brain Tumor',
+//       title: 'Metastatic Brain Tumor',
+//       description: 'Metastatic brain tumors spread to the brain from cancers in other parts of the body. Early identification helps doctors plan appropriate treatment and manage symptoms effectively.'
+//     }
+//   ];
+
+//   return (
+//     <section className="cardiology">
+//       <div className="clinic-tabs">
+//         {clinics.map((clinic, index) => (
+//           <button
+//             key={index}
+//             className={`clinic-tab ${activeTab === index ? 'active' : ''}`}
+//             onClick={() => setActiveTab(index)}
+//           >
+//             {clinic.name}
+//           </button>
+//         ))}
+//       </div>
+//       <div className="clinic-content">
+//         <div className="clinic-text">
+//           <h2>{clinics[activeTab].title}</h2>
+//           <p>{clinics[activeTab].description}</p>
+//           {/* <button className="learn-more-btn">Learn More</button> */}
+//         </div>
+//         <div className="clinic-icon">
+//           <FavoriteIcon />
+//         </div>
+//       </div>
+//     </section>
+//   );
+// }
+
+// export default CardiologyClinic;
+
+
+
+
+import React, { useState } from "react";
+import Logo from "../assets/snake.png"; // ← your logo file
 
 function CardiologyClinic() {
   const [activeTab, setActiveTab] = useState(0);
 
   const clinics = [
+    /* … your clinic data … */
     {
-      name: 'Cardiology Clinic',
-      title: 'Cardiology Clinic',
-      description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut elit tellus, luctus nec ullamcorper mattis, pulvinar dapibus leo. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.'
+      name: 'Glioma',
+      title: 'Glioma',
+      description: 'Gliomas are one of the most common types of brain tumors and develop from glial cells. They can affect brain function and may vary from slow-growing to aggressive forms, making early detection very important.'
     },
     {
-      name: 'Pediatric Care',
-      title: 'Pediatric Care',
-      description: 'Our pediatric care services provide comprehensive health solutions for children of all ages. We ensure your little ones receive the best medical attention with compassion and expertise.'
+      name: 'Meningioma',
+      title: 'Meningioma',
+      description: 'Meningiomas originate from the protective membranes surrounding the brain and spinal cord. They are often slow-growing and benign, but timely diagnosis helps prevent complications.'
     },
     {
-      name: 'Dental Services',
-      title: 'Dental Services',
-      description: 'Our dental services offer complete oral health care including preventive, restorative, and cosmetic dentistry. We use the latest technology to ensure comfortable and effective treatments.'
+      name: 'Pituitary Tumor',
+      title: 'Pituitary Tumor',
+      description: 'Pituitary tumors form in the pituitary gland and can affect hormone production. Although many are non-cancerous, they may cause vision problems or hormonal imbalance if left untreated.'
     },
     {
-      name: 'Neurology',
-      title: 'Neurology',
-      description: 'Our neurology department specializes in diagnosing and treating conditions of the nervous system. Our expert neurologists provide comprehensive care for a wide range of neurological conditions.'
+      name: 'Metastatic Brain Tumor',
+      title: 'Metastatic Brain Tumor',
+      description: 'Metastatic brain tumors spread to the brain from cancers in other parts of the body. Early identification helps doctors plan appropriate treatment and manage symptoms effectively.'
     }
   ];
 
@@ -33,22 +95,42 @@ function CardiologyClinic() {
         {clinics.map((clinic, index) => (
           <button
             key={index}
-            className={`clinic-tab ${activeTab === index ? 'active' : ''}`}
+            className={`clinic-tab ${activeTab === index ? "active" : ""}`}
             onClick={() => setActiveTab(index)}
           >
             {clinic.name}
           </button>
         ))}
       </div>
+
       <div className="clinic-content">
         <div className="clinic-text">
           <h2>{clinics[activeTab].title}</h2>
           <p>{clinics[activeTab].description}</p>
-          <button className="learn-more-btn">Learn More</button>
         </div>
-        <div className="clinic-icon">
-          <FavoriteIcon />
+
+        <div
+          className="clinic-logo"
+          style={{
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+            padding: "20px",
+          }}
+        >
+          <img
+            src={Logo}
+            alt="Clinic Logo"
+            style={{
+              width: "200px",
+              height: "200px",
+            
+              borderRadius: "10px",
+             
+            }}
+          />
         </div>
+
       </div>
     </section>
   );

@@ -1,61 +1,32 @@
-// import React from 'react';
-// import doctorImage from '../assets/finaldoc.png';
-
-// function Hero({ scrollToSection }) {
-//   return (
-//     <section
-//       className="hero"
-//       style={{ backgroundImage: `url(${doctorImage})` }}
-//     >
-//       <div className="hero-content">
-//         <button className="liveLife-btn">
-//           Live Your Life
-//         </button>
-
-//         <h1>We Care About Your Health</h1>
-
-//         <p>
-//           Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut elit tellus,
-//           luctus nec ullamcorper mattis, pulvinar dapibus leo.
-//         </p>
-
-//         <button
-//           className="contact-btn"
-//           onClick={() => scrollToSection('footer')}
-//         >
-//           Contact Us
-//         </button>
-//       </div>
-//     </section>
-//   );
-// }
-
-// export default Hero;
-
-
-
-
-
 import React from 'react';
-import doctorImage from '../assets/Billboard.png';
+// 🟢 Using the image from the New File
+import doctorImage from '../assets/b-2.png';
 
 function Hero({ scrollToSection }) {
   return (
-    <section className="hero" style={{ backgroundImage: `url(${doctorImage})` ,  backgroundPosition: "cover", backgroundRepeat:"no-repeat" ,backgroundPosition : "-50px 0", backgroundPosition: "-50px -30px"// parallax
-
-   }}>
+    <section 
+      className="hero" 
+      style={{ 
+        backgroundImage: `url(${doctorImage})`,
+        backgroundRepeat: "no-repeat",
+        // 🟢 Positioning from the New File (Adjusted for b-2.png)
+        backgroundPosition: "-200px 70px",
+        backgroundSize: "cover" 
+      }}
+    >
       <div className="hero-content">
-        <button 
-          className="liveLife-btn"
-          
-        >
+        <button className="liveLife-btn">
           Live Your Life
         </button>
+
         <h1>We Care About Your Health</h1>
+
+        {/* 🟢 Content from New File (AI Context) */}
         <p>
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut elit tellus, 
-          luctus nec ullamcorper mattis, pulvinar dapibus leo.
+          Early and accurate brain tumor detection using advanced AI and medical imaging. 
+          Our platform helps clinicians and patients make informed decisions faster and with confidence.
         </p>
+
         <button 
           className="contact-btn"
           onClick={() => scrollToSection('footer')}
@@ -63,9 +34,6 @@ function Hero({ scrollToSection }) {
           Contact Us
         </button>
       </div>
-      {/* <div className="hero-image">
-        <img src={doctorImage} alt="Professional doctor smiling" style={{height:700 , width :750}} />
-      </div> */}
     </section>
   );
 }

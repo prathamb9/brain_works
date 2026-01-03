@@ -1,30 +1,33 @@
 import React from 'react';
+
+// --- ICONS ---
 import LocalHospitalIcon from '@mui/icons-material/LocalHospital';
-import PregnantWomanIcon from '@mui/icons-material/PregnantWoman';
-import RestaurantIcon from '@mui/icons-material/Restaurant';
-import MedicalServicesIcon from '@mui/icons-material/MedicalServices';
+import AttachFileIcon from '@mui/icons-material/AttachFile';
+import VaccinesIcon from '@mui/icons-material/Vaccines';
+import EmergencyIcon from '@mui/icons-material/Emergency';
 
 function Services() {
+  // 🟢 Updated Service List: Focused on AI & NeuroScan features
   const services = [
     {
       icon: <LocalHospitalIcon />,
-      title: 'General Practitioners',
-      description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut elit tellus, luctus nec ullamcorper.'
+      title: 'MRI Image Analysis',
+      description: 'Upload MRI scans and let our AI analyze them to identify potential brain tumors with high accuracy and speed.'
     },
     {
-      icon: <PregnantWomanIcon />,
-      title: 'Pregnancy Support',
-      description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut elit tellus, luctus nec ullamcorper.'
+      icon: <VaccinesIcon />,
+      title: 'AI Tumor Detection',
+      description: 'Advanced deep learning models detect and classify brain tumors, supporting early diagnosis and clinical decisions.'
     },
     {
-      icon: <RestaurantIcon />,
-      title: 'Nutritional Support',
-      description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut elit tellus, luctus nec ullamcorper.'
+      icon: <EmergencyIcon />,
+      title: 'Tumor Classification & Insights',
+      description: 'Provides detailed insights such as tumor type, location, and severity to assist doctors in treatment planning.'
     },
     {
-      icon: <MedicalServicesIcon />,
-      title: 'Pharmaceutical Care',
-      description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut elit tellus, luctus nec ullamcorper.'
+      icon: <AttachFileIcon />,
+      title: 'Report Generation & Support',
+      description: 'Generates clear diagnostic reports and supports patients and clinicians with actionable results and guidance.'
     }
   ];
 
@@ -33,10 +36,11 @@ function Services() {
       <div className="section-header">
         <h2>Our Best Services For Your Solution</h2>
         <p>
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut elit tellus, 
-          luctus nec ullamcorper mattis, pulvinar dapibus leo.
+          Combining artificial intelligence with MRI analysis to deliver reliable brain tumor detection 
+          and assist healthcare professionals in taking timely action.
         </p>
       </div>
+      
       <div className="services-grid">
         {services.map((service, index) => (
           <div className="service-card" key={index}>
