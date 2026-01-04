@@ -52,6 +52,4 @@ The core of BrainWorks relies on a fine-tuned **VGG16** model.
 
 | Original Input | AI Attention Map | Final Detection |
 | ![alt text](image.png)|
-| *(Place your original MRI image here)* | *(Place your Heatmap image here)* | *(Place your Contour output here)* |
-
 ---
