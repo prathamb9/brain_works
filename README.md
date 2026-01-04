@@ -51,65 +51,7 @@ The core of BrainWorks relies on a fine-tuned **VGG16** model.
 ## 📸 Screenshots
 
 | Original Input | AI Attention Map | Final Detection |
-| :---: | :---: | :---: |
+| ![alt text](image.png)|
 | *(Place your original MRI image here)* | *(Place your Heatmap image here)* | *(Place your Contour output here)* |
 
 ---
-
-## 🚀 How to Run Locally
-
-Follow these steps to set up the project on your local machine.
-
-### 1. Clone the Repository
-```bash
-git clone [https://github.com/prathamb9/brain_works.git](https://github.com/prathamb9/brain_works.git)
-cd brain_works
-
-### 2. Create a Virtual Environment (Optional  but Recommended)
-
-```Bash
-
-python -m venv venv
-# Windows
-venv\Scripts\activate
-# Mac/Linux
-source venv/bin/activate
-
-
-3. Activate the Virtual Environment
-Depending on your OS, run the appropriate command:
-
-Windows (Command Prompt):
-
-venv\Scripts\activate
-
-Windows (PowerShell):
-
-PowerShell
-
-.\venv\Scripts\Activate.ps1
-
-4. Install Dependencies
-Once the environment is active, install all required libraries:
-
-Bash
-
-pip install -r requirements.txt
-
-5. Run the Application
-Bash
-
-python app.py
-
-🤝 Contributing
-Contributions are welcome! Please follow these steps:
-
-Fork the repository.
-
-Create a new branch (git checkout -b feature/YourFeature).
-
-Commit your changes (git commit -m 'Add some feature').
-
-Push to the branch (git push origin feature/YourFeature).
-
-Open a Pull Request.
