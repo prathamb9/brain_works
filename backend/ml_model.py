@@ -69,48 +69,67 @@ except Exception as e:
 def final_fix_predict_v4(img_path, model):
     if not os.path.exists(img_path):
         return None, None, "File Not Found", 0, None
+
     try:
+        # 1. MAPPING & DIMENSIONS
         mapping = {0: 'glioma', 1: 'meningioma', 2: 'notumor', 3: 'pituitary'}
         img_size = 128
+
+        # 2. LOAD & NORMALIZE (1./255 scaling)
         img = tf.keras.preprocessing.image.load_img(img_path, target_size=(img_size, img_size))
         img_array = tf.keras.preprocessing.image.img_to_array(img)
+        
+        # Scaling matching the 'augment_image' function in your notebook
         img_scaled = img_array / 255.0 
         img_expanded = np.expand_dims(img_scaled, axis=0)
 
+        # 3. GET PREDICTION
         preds = model.predict(img_expanded, verbose=0)
         class_idx = np.argmax(preds[0])
         confidence = np.max(preds[0]) * 100
         label_name = mapping[class_idx]
 
+        # 4. PREPARE FIGURES (RGB format)
         input_img = img_array.astype(np.uint8).copy()
-        output_img = img_array.astype(np.uint8).copy()
+        output_img = img_array.astype(np.uint8).copy() # Fresh copy for drawing
         heatmap_255 = np.zeros((img_size, img_size), dtype=np.uint8)
 
+        # 5. LOCALIZATION
         if class_idx != 2: 
-            try:
-                vgg_base = model.get_layer('vgg16') 
-                last_conv = vgg_base.get_layer("block5_conv3")
-                grad_model = tf.keras.models.Model([vgg_base.input], [last_conv.output, vgg_base.output])
-                img_tensor = tf.Variable(tf.cast(img_expanded, tf.float32))
-                with tf.GradientTape() as tape:
-                    tape.watch(img_tensor)
-                    conv_out, vgg_preds = grad_model(img_tensor)
-                    loss = vgg_preds[:, class_idx]
-                grads = tape.gradient(loss, conv_out)[0]
-                weights = tf.reduce_mean(grads, axis=(0, 1))
-                cam = conv_out[0] @ weights[..., tf.newaxis]
-                cam = tf.squeeze(tf.maximum(cam, 0) / (tf.math.reduce_max(cam) + 1e-10)).numpy()
-                heatmap_255 = np.uint8(255 * cv2.resize(cam, (img_size, img_size)))
-                _, thresh = cv2.threshold(heatmap_255, 0, 255, cv2.THRESH_BINARY + cv2.THRESH_OTSU)
-                contours, _ = cv2.findContours(thresh, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
-                if contours:
-                    best_cnt = max(contours, key=cv2.contourArea)
-                    cv2.drawContours(output_img, [best_cnt], -1, (255, 0, 0), 2)
-            except Exception:
-                pass
+            vgg_base = model.get_layer('vgg16')
+            last_conv = vgg_base.get_layer("block5_conv3")
+            grad_model = tf.keras.models.Model([vgg_base.input], [last_conv.output, vgg_base.output])
+            
+            img_tensor = tf.Variable(tf.cast(img_expanded, tf.float32)) 
+            with tf.GradientTape() as tape:
+                tape.watch(img_tensor)
+                conv_out, vgg_preds = grad_model(img_tensor)
+                loss = vgg_preds[:, class_idx]
+            
+            grads = tape.gradient(loss, conv_out)[0] 
+            weights = tf.reduce_mean(grads, axis=(0, 1))
+            cam = conv_out[0] @ weights[..., tf.newaxis]
+            cam = tf.squeeze(tf.maximum(cam, 0) / (tf.math.reduce_max(cam) + 1e-10)).numpy()
+            
+            # --- UPDATED BOUNDARY TRACE LOGIC ---
+            heatmap_255 = np.uint8(255 * cv2.resize(cam, (img_size, img_size)))
+            
+            # CHANGE HERE: Replaced Otsu with a fixed high threshold (190)
+            # 50-100 captures Blue/Green
+            # 190+ captures Red/Yellow (The core)
+            _, thresh = cv2.threshold(heatmap_255, 190, 255, cv2.THRESH_BINARY) 
+            
+            contours, _ = cv2.findContours(thresh, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
+            
+            if contours:
+                best_cnt = max(contours, key=cv2.contourArea)
+                # Drawing Red Contour with thickness 2
+                cv2.drawContours(output_img, [best_cnt], -1, (255, 0, 0), 2)
+
         return input_img, output_img, label_name, confidence, heatmap_255
+
     except Exception as e:
-        print(f"Pred Error: {e}")
+        print(f"Error: {e}")
         return None, None, "ERROR", 0, None
 
 # --- 4. PROFESSIONAL DOCTOR AI ---
@@ -285,7 +304,7 @@ def create_pdf_in_memory(gemini_text, patient_data, img_orig, img_heat, img_cont
     c.line(30, 50, width - 30, 50)
     c.setFont("Helvetica-Oblique", 8)
     c.setFillColor(colors.grey)
-    c.drawString(30, 35, "Electronically Signed by: NeuroScan AI System | Verified by Chief of Neuroradiology.")
+    c.drawString(30, 35, "Electronically Signed by: BrainWorks System | Verified by our smartest Models.")
     
     c.save()
     pdf_data = buffer.getvalue()
